@@ -100,6 +100,11 @@ public final class DependencyTrackPublisher extends ThresholdCapablePublisher im
      */
     private Boolean autoCreateProjects;
 
+    /**
+     * Specifies whether Wait for the response from Dependency track
+     */
+    private Boolean waitForResult;
+
     @Getter(AccessLevel.NONE)
     @Setter(AccessLevel.NONE)
     private transient ApiClientFactory clientFactory;
@@ -141,6 +146,7 @@ public final class DependencyTrackPublisher extends ThresholdCapablePublisher im
         final String effectiveProjectVersion = env.expand(projectVersion);
         final String effectiveArtifact = env.expand(artifact);
         final boolean effectiveAutocreate = isEffectiveAutoCreateProjects();
+        final boolean effectiveWaitForResult = isWaitForResult();
 
         if (StringUtils.isBlank(effectiveArtifact)) {
             logger.log(Messages.Builder_Artifact_Unspecified());
@@ -172,6 +178,10 @@ public final class DependencyTrackPublisher extends ThresholdCapablePublisher im
             throw new AbortException(Messages.Builder_Upload_Failed());
         }
 
+        if (effectiveWaitForResult == false){
+            logger.log("Not waiting for project analysis result.");
+            return;
+        }
         // add ResultLinkAction even if it may not contain a projectId. but we want to store name version for the future.
         final ResultLinkAction linkAction = new ResultLinkAction(getEffectiveFrontendUrl(), projectId);
         linkAction.setProjectName(effectiveProjectName);
@@ -334,5 +344,12 @@ public final class DependencyTrackPublisher extends ThresholdCapablePublisher im
      */
     public boolean isEffectiveAutoCreateProjects() {
         return Optional.ofNullable(autoCreateProjects).orElse(descriptor.isDependencyTrackAutoCreateProjects());
+    }
+
+    /**
+     * @return effective waitForResponse
+     */
+    public boolean isWaitForResult() {
+        return Optional.ofNullable(waitForResult).orElse(descriptor.isDependencyTrackWaitForResult());
     }
 }

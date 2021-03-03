@@ -51,6 +51,9 @@ limitations under the License.
     <f:entry title="${%dependencytrack.autocreate}" field="autoCreateProjects" help="/plugin/dependency-track/help-dt-autocreate.html">
         <f:checkbox id="dependencytrack.autocreate" />
     </f:entry>
+    <f:entry title="${%dependencytrack.waitForResult}" field="dependencyTrackWaitForResult" help="/plugin/dependency-track/help-dt-waitForResult.html">
+        <f:checkbox id="dependencytrack.waitForResult" default="true"/>
+    </f:entry>
     </f:optionalBlock>
 
     <f:advanced title="Risk Gate Thresholds" align="left">

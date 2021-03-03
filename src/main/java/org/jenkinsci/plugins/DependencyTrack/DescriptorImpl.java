@@ -121,6 +121,13 @@ public final class DescriptorImpl extends BuildStepDescriptor<Publisher> impleme
     private int dependencyTrackReadTimeout;
 
     /**
+     * Specifies whether Wait for the response from Dependency track
+     */
+    @Getter
+    @Setter(onMethod_ = {@DataBoundSetter})
+    private boolean dependencyTrackWaitForResult;
+
+    /**
      * Default constructor. Obtains the Descriptor used in
      * DependencyCheckBuilder as this contains the global Dependency-Check
      * Jenkins plugin configuration.

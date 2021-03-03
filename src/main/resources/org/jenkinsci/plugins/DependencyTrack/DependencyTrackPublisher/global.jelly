@@ -42,6 +42,9 @@ limitations under the License.
             <f:entry title="${%dependencytrack.read.timeout}" field="dependencyTrackReadTimeout" help="/plugin/dependency-track/help-dt-read-timeout.html">
                 <f:number id="dependencytrack.read.timeout" default="5" clazz="non-negative-number-required" />
             </f:entry>
+            <f:entry title="${%dependencytrack.waitForResult}" field="dependencyTrackWaitForResult" help="/plugin/dependency-track/help-dt-waitForResult.html">
+                <f:checkbox id="dependencytrack.waitForResult" default="true"/>
+            </f:entry>
         </f:advanced>
         <f:validateButton title="${%dependencytrack.connection.test}" progress="${%dependencytrack.connection.testing}" method="testConnection" with="dependencyTrackUrl,dependencyTrackApiKey" />
     </f:section>
